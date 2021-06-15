@@ -28,7 +28,7 @@ for i in range(1, len(o_list)):
         new_iter_p[to_h_i] = np.dot(iter_p, h_state_to_h_state[:, to_h_i])
 
     for to_h_i in range(h_state_num):
-        new_iter_p[to_h_i] = new_iter_p[to_h_i] * h_state_to_o_state[o_list[i]]
+        new_iter_p[to_h_i] = new_iter_p[to_h_i] * h_state_to_o_state[to_h_i][o_list[i]]
     iter_p = new_iter_p
 
 p_out = np.sum(iter_p)
