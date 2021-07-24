@@ -48,3 +48,13 @@ NMS 的典型问题：
 
 ## soft-NMS
 
+soft-NMS 不在是通过粗暴的将重叠部分大于阈值的检测框直接删掉，而是通过动态的通过重叠的程度，动态减少
+
+检测框的置信度。常用的减少系数函数有线性函数和高斯函数。如下：
+
+<img src="https://latex.codecogs.com/svg.image?score_{i}&space;=&space;\left\{\begin{matrix}score_{i}&space;&&space;iou(M,box_{i})&space;<&space;Threshold&space;\\score_{i}\cdot&space;(1&space;-&space;iou(M,box_{i})&space;&&space;iou(M,box_{i})&space;<&space;Threshold&space;\\\end{matrix}\right.&space;" title="score_{i} = \left\{\begin{matrix}score_{i} & iou(M,box_{i}) < Threshold \\score_{i}\cdot (1 - iou(M,box_{i}) & iou(M,box_{i}) < Threshold \\\end{matrix}\right. " />
+
+关于高斯函数如何使用，大家自行思考。
+
+## soft-NMS 的缺憾
+
