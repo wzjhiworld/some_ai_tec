@@ -64,13 +64,13 @@ softer-NMS 对最终输出的位置的建模进行了处理。
 
 ## softer-NMS
 
-softer-NMS 在 soft-NMS 的基础上，加入了位置置信度的概念（实际上就是高斯分布的方差，预测准确方差小，预测不准确方差大）。在网络模型的输出中，不仅需要预测框的 4 个位置参数，还需要预测每个位置的置信度。
+softer-NMS 在 soft-NMS 的基础上，加入了位置预测精准程度的概念（实际上就是高斯分布的方差，预测准确方差小，预测不准确方差大）。在网络模型的输出中，不仅需要预测框的 4 个位置参数，还需要预测每个位置的精准程度（方差）。
 
 其推到过程主要是首先假设输出的框的 4 个位置坐标相互独立，并满足高斯分布:
 
 <img src="https://latex.codecogs.com/svg.image?P_{\Theta&space;}(x)=\frac{1}{\sqrt{2\pi&space;\sigma^{2}}}\cdot&space;e^{-\frac{(x-x_{e})^{2}}{2\cdot\sigma^{2}}}" title="P_{\Theta }(x)=\frac{1}{\sqrt{2\pi \sigma^{2}}}\cdot e^{-\frac{(x-x_{g})^{2}}{2\cdot\sigma^{2}}}" />
 
-其中<img src="https://latex.codecogs.com/svg.image?x_{e}" title="x_{g}" />为需要预测的标注框，<img src="https://latex.codecogs.com/svg.image?\sigma^{2}&space;" title="\sigma^{2} " />是预测的模型的方差，如果预测的越准，则方差越小，预测的越不准则方差越大。
+其中<img src="https://latex.codecogs.com/svg.image?x_{e}" title="x_{g}" />为预测的标注框，<img src="https://latex.codecogs.com/svg.image?\sigma^{2}&space;" title="\sigma^{2} " />是预测的模型的方差，如果预测的越准，则方差越小，预测的越不准则方差越大。
 
 同时假设真实的 Ground 框的分布也是高斯分布，只是是处于方差<img src="https://latex.codecogs.com/svg.image?\sigma^{2}&space;\to&space;0" title="\sigma^{2} \to 0" />的时候，这时候，高斯分布退化为 Dirac delta 函数。
 
@@ -88,7 +88,7 @@ softer-NMS 在 soft-NMS 的基础上，加入了位置置信度的概念（实�
 
 通过上述的模型输出方式，我们就得到了关于位置准确度的一个评估，可以用于矫正框回归的位置的准确性。softer-NMS 的算法流程如下：
 
-![20190823153138458](E:\Github\some_ai_tec\深度学习进化历史\images\20190823153138458.png)
+![20190823153138458](https://user-images.githubusercontent.com/78289886/126886576-82bac519-adf5-45b8-bdb3-0ecb23d023c0.png)
 
 其中位置框的更新规则如下：
 
