@@ -48,9 +48,9 @@ model.classifier[1] = torch.nn.Linear(in_features=1280, out_features=10, bias=Tr
 show = ToPILImage()
 transform = transforms.Compose([transforms.ToTensor(),transforms.Normalize(mean = (0.5,0.5,0.5),std = (0.5,0.5,0.5))])#把数据变为tensor并且归一化range [0, 255] -> [0.0,1.0]
 trainset = tv.datasets.CIFAR10(root='data1/',train = True,download=True,transform=transform)
-trainloader = torch.utils.data.DataLoader(trainset,batch_size=24,shuffle=True,num_workers=0)
+trainloader = torch.utils.data.DataLoader(trainset,batch_size=24,shuffle=True,num_workers=10)
 testset = tv.datasets.CIFAR10('data1/',train=False,download=True,transform=transform)
-testloader = torch.utils.data.DataLoader(testset,batch_size=24,shuffle=True,num_workers=0)
+testloader = torch.utils.data.DataLoader(testset,batch_size=24,shuffle=True,num_workers=10)
 classes = ('plane','car','bird','cat','deer','dog','frog','horse','ship','truck')
 
 model = model.to(device)
@@ -65,11 +65,10 @@ optimizer = torch.optim.SGD(model.parameters(), lr = 0.001,momentum=0.9)
 
 #训练网络
 from torch.autograd  import Variable
-for epoch in range(4):
+for epoch in range(8):
     running_loss = 0.0
     for i, data in enumerate(trainloader, 0):
         inputs, labels = data
-        inputs, labels = Variable(inputs), Variable(labels)
         inputs = inputs.to(device)
         labels = labels.to(device)
         optimizer.zero_grad()
@@ -80,7 +79,7 @@ for epoch in range(4):
         ema.update()
         running_loss += loss.cpu().item()
         if i % 100 == 0:
-            print('[%d, %5d] loss: %.3f'%(epoch+1,i+1,running_loss/2000))
+            print('[%d, %5d] loss: %.3f'%(epoch+1,i+1,running_loss/100))
             running_loss = 0.0
 print("----------finished training---------")
 dataiter = iter(testloader)
