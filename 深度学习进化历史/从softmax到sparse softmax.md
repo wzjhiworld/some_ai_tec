@@ -18,7 +18,7 @@ softmax 主要用于分类问题中，计算每个类别的概率，其公式如
 
 我们对上面的loss，我们通过化简得到:  
 
-<img src="https://latex.codecogs.com/svg.image?\begin{align}loss&space;=&space;log(\sum_{j\neq&space;i}^{n}e^{s_{j}-s_{i}}&space;&plus;&space;1)\end{align}" title="\begin{align}loss = log(\sum_{j\neq i}^{n}e^{s_{j}-s_{i}} + 1)\end{align}" />  
+<img src="https://latex.codecogs.com/svg.image?\begin{align}loss&space;=&space;log(\sum_{j\neq&space;i}^{n}e^{s_{j}-s_{i}}&space;&plus;&space;1)\end{align}" title="\begin{aligned}loss = log(\sum_{j\neq i}^{n}e^{s_{j}-s_{i}} + 1)\end{aligned}" />  
 
 假设 <img src="https://latex.codecogs.com/svg.image?s_{j}&space;\;\;\;&space;(j&space;\neq&space;&space;i)" title="s_{j} \;\;\; (j \neq i)" /> 的最小值为<img src="https://latex.codecogs.com/svg.image?s_{min}" title="s_{min}" />, 可以得到:  
 
